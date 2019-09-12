@@ -1,5 +1,23 @@
 <template>
   <div class="login">
+    <vue-particles
+      color="#dedede"
+      :particleOpacity="0.7"
+      :particlesNumber="80"
+      shapeType="circle"
+      :particleSize="4"
+      linesColor="#dedede"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="3"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="true"
+      clickMode="push"
+    >
+    </vue-particles>
     <div class="slideShadow" v-show="showSlide">
       <transition>
         <div class="slideSty animated bounce">
@@ -22,8 +40,8 @@
       <h2 class="loginH2"><strong>Vue</strong> 后台管理系统</h2>
       <div class="loginCon">
         <div class="titleDiv">
-          <h3>Sign up now</h3>
-          <p>Enter your username and password to log on:</p>
+          <h3>账号登录</h3>
+          <p>输入账号密码登录，有问题联系请管理员</p>
           <i class="el-icon-key"></i>
         </div>
         <el-form ref="loginForm" :rules="rules" :model="ruleForm">
@@ -81,7 +99,7 @@ export default {
   methods: {
     onSuccess() {
       this.showSlide = false
-      this._login()
+      // this._login()
     },
     onFail() {
       this.$message.error('验证失败')
@@ -92,19 +110,40 @@ export default {
     loginYz(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          this.showSlide = true
+          // this.showSlide = true
+          this._login()
         } else {
           return
         }
       })
     },
+    // _login() {
+    //   this.$store
+    //     .dispatch('user/_login', this.ruleForm)
+    //     .then(res => {
+    //       if (!res.data.success) {
+    //         this.refresh()
+    //       } else {
+    //         this.$router.push(this.$route.query.redirect)
+    //         if (this.notifyObj) {
+    //           this.notifyObj.close()
+    //         }
+    //         this.notifyObj = null
+    //       }
+    //     })
+    //     .catch(error => {
+    //       this.refresh()
+    //       this.$message.error(error)
+    //     })
+    // },
     _login() {
       this.$store
         .dispatch('user/_login', this.ruleForm)
         .then(res => {
-          if (!res.data.success) {
+          if (!res) {
             this.refresh()
           } else {
+            console.log(this.$route.query.redirect)
             this.$router.push(this.$route.query.redirect)
             if (this.notifyObj) {
               this.notifyObj.close()
@@ -122,7 +161,7 @@ export default {
         title: '提示',
         message:
           '目前有两个登陆角色，管理员和普通用户，账号分别为：admin、user,密码都为：123456',
-        duration: 0,
+        duration: 4500,
         iconClass: 'el-icon-s-opportunity'
       })
     }
@@ -142,11 +181,14 @@ export default {
 }
 .loginBox {
   height: 455px;
-  width: 550px;
+  width: 450px;
   margin: 0 auto;
-  position: relative;
+  position: absolute;
+  z-index: 9;
   top: 50%;
+  left: 50%;
   margin-top: -287px;
+  margin-left: -225px;
 }
 .loginH2 {
   font-size: 38px;
@@ -193,7 +235,8 @@ export default {
   background: #19b9e7;
 }
 .slideShadow {
-  position: fixed;
+  position: absolute;
+  top: 0;
   z-index: 999;
   width: 100%;
   height: 100%;

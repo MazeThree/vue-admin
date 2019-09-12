@@ -31,7 +31,7 @@ export default {
     barData: {
       deep: true,
       handler(val) {
-        this._setOption(val.y2017, val.y2018, val.y2019)
+        this._setOption(val.y2017, val.y2018)
       }
     }
   },
@@ -51,14 +51,14 @@ export default {
         )
       }
     },
-    _setOption(y2017, y2018, y2019) {
+    _setOption(y2017, y2018) {
       this.mycharts.setOption({
         title: {
           text: 'Yearly Expense',
           left: '16'
         },
         legend: {
-          data: ['2017', '2018', '2019']
+          data: ['2017', '2018']
         },
         tooltip: {
           trigger: 'axis',
@@ -75,20 +75,7 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec'
-          ]
+          data: ['Jan', 'Feb', 'Mar', 'Apr', 'May']
         },
         yAxis: {},
         // Declare several bar series, each will be mapped
@@ -103,11 +90,6 @@ export default {
             type: 'bar',
             name: '2018',
             data: y2018
-          },
-          {
-            type: 'bar',
-            name: '2019',
-            data: y2019
           }
         ]
       })

@@ -31,4 +31,4 @@ npm run serve
 
 [在线浏览](https://gcddblue.gitee.io/vue-admin-webapp)
 
-Copyright (c) 2019 gcddblu
+Copyright (c) 2019 Maze

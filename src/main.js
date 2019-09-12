@@ -6,8 +6,10 @@ import '@/style/index.scss' // glob scss
 import './plugins/element.js'
 import animated from 'animate.css'
 import '@/assets/iconfont/iconfont.css'
+import VueParticles from 'vue-particles'
 
 Vue.use(animated)
+Vue.use(VueParticles)
 // import SlideVerify from 'vue-monoplasty-slide-verify'
 
 // Vue.use(SlideVerify)

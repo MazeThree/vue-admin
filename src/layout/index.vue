@@ -17,6 +17,7 @@
 <script>
 import SideBar from './components/sideBar'
 import MHeader from './components/header'
+// 消息中心
 import NotificatBar from '@/components/NotificatBar'
 import PageMain from './components/PageMain'
 import { mapGetters } from 'vuex'

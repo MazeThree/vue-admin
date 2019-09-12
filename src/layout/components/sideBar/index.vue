@@ -8,7 +8,7 @@
         text-color="#b5b6bd"
         active-text-color="rgb(79, 148, 212)"
         mode="vertical"
-        :collapse-transition="false"
+        :collapse-transition="true"
         :collapse="opened"
       >
         <sidebar-item

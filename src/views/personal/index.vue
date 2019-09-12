@@ -2,59 +2,36 @@
   <div class="personal noPadding">
     <div class="personal_h">
       <div class="perh_d1">
+        <div class="perh_img">
+          <div class="img"></div>
+        </div>
+        <div class="perh_p0">{{ userName }}</div>
         <div class="perh_info">
-          <p class="perh_p0">{{ userName }}</p>
           <div class="chatBox">
             <a href="javascript:;"><i class="iconfont el-icon-weixin"></i></a>
             <a href="javascript:;"><i class="iconfont el-icon-twitter"></i></a>
             <a href="javascript:;"><i class="iconfont el-icon-weibo"></i></a>
           </div>
-          <p>{{ introduce }}</p>
-        </div>
-        <img src="../../assets/personal/user01.jpg" />
-        <div class="rightIcon">
-          <span style="margin-right: 20px;"
-            ><i class="el-icon-star-on"></i>Collection</span
-          >
-          <span><i class="el-icon-chat-dot-round"></i>Message</span>
+          <!-- <div>{{ introduce }}</div> -->
         </div>
       </div>
     </div>
-    <el-tabs>
-      <el-tab-pane label="Timeline">
-        <!-- <el-button type="primary" slot="label">Timeline</el-button> -->
-        <el-timeline>
-          <el-timeline-item timestamp="2019/4/12" placement="top">
-            <el-card>
-              <h4>更新 Github 模板</h4>
-              <p>提交于 2019/4/12 20:46</p>
-            </el-card>
-          </el-timeline-item>
-          <el-timeline-item timestamp="2019/4/3" placement="top">
-            <el-card>
-              <h4>更新 Github 模板</h4>
-              <p>提交于 2018/4/3 20:46</p>
-            </el-card>
-          </el-timeline-item>
-          <el-timeline-item timestamp="2019/4/2" placement="top">
-            <el-card>
-              <h4>更新 Github 模板</h4>
-              <p>提交于 2019/4/2 20:46</p>
-            </el-card>
-          </el-timeline-item>
-          <el-timeline-item timestamp="2019/4/1" placement="top">
-            <el-card>
-              <h4>更新 Github 模板</h4>
-              <p>提交于 2019/4/1 20:46</p>
-            </el-card>
-          </el-timeline-item>
-        </el-timeline>
-      </el-tab-pane>
-      <el-tab-pane label="Message">
-        <!-- <el-button type="success" slot="label">Message</el-button> -->
-        Message
-      </el-tab-pane>
-    </el-tabs>
+    <div class="personal_b">
+      <el-card class="body_left"
+               shadow="always">
+        <div slot="header"
+             class="clearfix">
+          <span>卡片名称</span>
+          <el-button style="float: right; padding: 3px 0"
+                     type="text">操作按钮</el-button>
+        </div>
+        <div>11111</div>
+      </el-card>
+      <el-card class="body_right"
+               shadow="alaways">
+        鼠标悬浮时显示
+      </el-card>
+    </div>
   </div>
 </template>
 
@@ -69,29 +46,38 @@ export default {
 <style lang="scss" scoped>
 .personal_h {
   width: 100%;
-  height: 230px;
-  background: url(../../assets/personal/personBg.jpg) no-repeat center center;
+  height: 430px;
+  background: url(../../assets/personal/mine.jpg) no-repeat center center;
   background-size: cover;
   .perh_d1 {
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    position: relative;
-    color: #58666e;
-    & > img {
-      position: absolute;
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      top: 60px;
-      left: 50px;
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    .perh_img {
+      height: 120px;
+      .img {
+        border-radius: 50%;
+        height: 120px;
+        width: 120px;
+        margin: 0 auto;
+        background: url(../../assets/personal/user01.jpg) no-repeat center
+          center;
+        background-size: cover;
+      }
+    }
+    .perh_p0 {
+      margin: 0 auto;
+      font-size: 35px;
+      margin-bottom: 6px;
     }
     .perh_info {
-      padding: 59px 0 0 172px;
-      .perh_p0 {
-        font-size: 20px;
-        margin-bottom: 6px;
-      }
+      flex: 1;
+      text-align: right;
+      padding: 60px 80px;
     }
     .chatBox {
       .iconfont {
@@ -115,25 +101,33 @@ export default {
         }
       }
     }
-    .rightIcon {
-      position: absolute;
-      top: 94px;
-      right: 50px;
-      color: #333;
-      span {
-        font-size: 20px;
-        i {
-          font-size: 18px;
-          margin-right: 5px;
-          color: #333;
-        }
-      }
-    }
+  }
+}
+.personal_b {
+  position: absolute;
+  width: 80%;
+  // height: calc(100% - 340px);
+  top: 340px;
+  left: 10%;
+  display: flex;
+  justify-content: space-around;
+  .body_left {
+    width: 30%;
+    border-radius: 10px;
+    background: rgb(255, 255, 255, 0.5);
+  }
+  .body_right {
+    width: 65%;
+    border-radius: 10px;
+    background: rgb(255, 255, 255, 0.5);
   }
 }
 </style>
 <style lang="scss">
 .personal {
+  height: 100%;
+  width: 100%;
+  position: relative;
   .el-tabs__header {
     padding: 15px 0;
     background: #fff;

@@ -93,28 +93,49 @@ import LineCharts from './components/LineCharts'
 import PieCharts from './components/PieCharts'
 import TableShow from './components/TableShow'
 import BarCharts from './components/BarCharts'
-import {
-  getCardsData,
-  getTableData,
-  getLineData,
-  getBarData
-} from '@/api/dashboard'
+// import {
+//   getCardsData,
+//   getTableData,
+//   getLineData,
+//   getBarData
+// } from '@/api/dashboard'
 export default {
   data() {
     return {
       startVal: 0,
-      vistors: 0,
-      message: 0,
-      order: 0,
-      profit: 0,
-      tableData: [],
-      lineChartData: {},
-      barData: {}
+      vistors: 2310,
+      message: 210,
+      order: 1230,
+      profit: 1230,
+      tableData: [
+        {
+          id: '62000019761130154',
+          name: '8AK!bzM',
+          price: 7224,
+          quantity: 39,
+          status: 1
+        },
+        {
+          id: '620000197611301',
+          name: '8AK!M',
+          price: 724,
+          quantity: 9,
+          status: 0
+        }
+      ],
+      lineChartData: {
+        inPrice: [86436, 78096, 79633, 87857, 33375, 76329],
+        outPrice: [54476, 99294, 51568, 94282, 92459, 55151]
+      },
+      barData: {
+        y2017: [105603, 278022, 146043, 218018, 289759],
+        y2018: [293095, 196574, 154753, 232973, 242401]
+      }
     }
   },
-  created() {
-    this._getAllData()
-  },
+  // created() {
+  //   this._getAllData()
+  // },
   components: {
     CountTo,
     LineCharts,
@@ -123,21 +144,22 @@ export default {
     BarCharts
   },
   methods: {
-    _getAllData() {
-      this.$http
-        .all([getCardsData(), getLineData(), getTableData(), getBarData()])
-        .then(
-          this.$http.spread((cardData, lineData, tabData, barData) => {
-            this.vistors = cardData.data.vistors
-            this.message = cardData.data.message
-            this.order = cardData.data.order
-            this.profit = cardData.data.profit
-            this.lineChartData = lineData.data
-            ;(this.tableData = tabData.data.tableList),
-              (this.barData = barData.data)
-          })
-        )
-    }
+    // _getAllData() {
+    //   this.$http
+    //     .all([getCardsData(), getLineData(), getTableData(), getBarData()])
+    //     .then(
+    //       this.$http.spread((cardData, lineData, tabData, barData) => {
+    //         this.vistors = cardData.data.vistors
+    //         this.message = cardData.data.message
+    //         this.order = cardData.data.order
+    //         this.profit = cardData.data.profit
+    //         this.lineChartData = lineData.data
+    //         ;(this.tableData = tabData.data.tableList),
+    //           (this.barData = barData.data)
+    //       })
+    //     )
+    // }
+    // 静态修改
   }
 }
 </script>
