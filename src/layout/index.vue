@@ -1,25 +1,26 @@
 <template>
-  <div class="wrapper" :class="{ closeBar: opened }">
-    <m-header></m-header>
-    <transition
-      enter-active-class="animated bounceInRight"
-      leave-active-class="animated bounceOutRight"
-    >
-      <notificat-bar v-show="msgIsShow"></notificat-bar>
-    </transition>
-    <div class="wrapper_con">
-      <side-bar></side-bar>
-      <page-main></page-main>
-    </div>
-  </div>
+  <el-container>
+    <el-header>
+      <m-header></m-header>
+    </el-header>
+    <el-main>
+      <div class="pageMain">
+        <transition name="fade-page" mode="out-in">
+          <keep-alive>
+            <router-view v-if="!$route.meta.noCache"></router-view>
+          </keep-alive>
+          <router-view v-if="$route.meta.noCache"></router-view>
+        </transition>
+      </div>
+      <el-footer>Footer</el-footer>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
-import SideBar from './components/sideBar'
 import MHeader from './components/header'
 // 消息中心
 import NotificatBar from '@/components/NotificatBar'
-import PageMain from './components/PageMain'
 import { mapGetters } from 'vuex'
 import driver from '@/mixins/useDriver'
 export default {
@@ -35,10 +36,8 @@ export default {
     ...mapGetters(['opened', 'msgIsShow', 'showDriver'])
   },
   components: {
-    SideBar,
     MHeader,
-    NotificatBar,
-    PageMain
+    NotificatBar
   }
 }
 </script>

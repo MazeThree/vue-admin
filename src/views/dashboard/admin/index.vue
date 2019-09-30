@@ -5,13 +5,13 @@
       <el-col :span="6">
         <div class="cardItem">
           <div class="cardItem_txt">
+            <p class="cardItem_p1">访问量</p>
             <count-to
               class="cardItem_p0 color-green1"
               :startVal="startVal"
               :endVal="vistors"
               :duration="2000"
             ></count-to>
-            <p class="cardItem_p1">Total Visitors</p>
           </div>
           <div class="cardItem_icon">
             <i class="el-icon-user color-green1"></i>
@@ -21,13 +21,13 @@
       <el-col :span="6">
         <div class="cardItem">
           <div class="cardItem_txt">
+            <p class="cardItem_p1">消息量</p>   
             <count-to
               class="cardItem_p0 color-blue"
               :startVal="startVal"
               :endVal="message"
               :duration="2000"
             ></count-to>
-            <p class="cardItem_p1">Messages</p>
           </div>
           <div class="cardItem_icon">
             <i class="el-icon-s-comment color-blue"></i>
@@ -37,13 +37,13 @@
       <el-col :span="6">
         <div class="cardItem">
           <div class="cardItem_txt">
+            <p class="cardItem_p1">销售额(￥)</p>
             <count-to
               class="cardItem_p0 color-red"
               :startVal="startVal"
               :endVal="order"
               :duration="2000"
             ></count-to>
-            <p class="cardItem_p1">Total Order Placeed</p>
           </div>
           <div class="cardItem_icon">
             <i class="el-icon-shopping-cart-2 color-red"></i>
@@ -53,13 +53,13 @@
       <el-col :span="6">
         <div class="cardItem">
           <div class="cardItem_txt">
+            <p class="cardItem_p1">收藏数</p>
             <count-to
               class="cardItem_p0 color-green2"
               :startVal="startVal"
               :endVal="profit"
               :duration="2000"
             ></count-to>
-            <p class="cardItem_p1">Total Profit</p>
           </div>
           <div class="cardItem_icon">
             <i class="el-icon-wallet color-green2"></i>
@@ -121,6 +121,48 @@ export default {
           price: 724,
           quantity: 9,
           status: 0
+        },
+        {
+          id: '62000019761130154',
+          name: '8AK!bzM',
+          price: 7224,
+          quantity: 39,
+          status: 1
+        },
+        {
+          id: '620000197611301',
+          name: '8AK!M',
+          price: 724,
+          quantity: 9,
+          status: 0
+        },
+        {
+          id: '62000019761130154',
+          name: '8AK!bzM',
+          price: 7224,
+          quantity: 39,
+          status: 1
+        },
+        {
+          id: '620000197611301',
+          name: '8AK!M',
+          price: 724,
+          quantity: 9,
+          status: 0
+        },
+        {
+          id: '62000019761130154',
+          name: '8AK!bzM',
+          price: 7224,
+          quantity: 39,
+          status: 1
+        },
+        {
+          id: '620000197611301',
+          name: '8AK!M',
+          price: 724,
+          quantity: 9,
+          status: 0
         }
       ],
       lineChartData: {
@@ -144,30 +186,12 @@ export default {
     BarCharts
   },
   methods: {
-    // _getAllData() {
-    //   this.$http
-    //     .all([getCardsData(), getLineData(), getTableData(), getBarData()])
-    //     .then(
-    //       this.$http.spread((cardData, lineData, tabData, barData) => {
-    //         this.vistors = cardData.data.vistors
-    //         this.message = cardData.data.message
-    //         this.order = cardData.data.order
-    //         this.profit = cardData.data.profit
-    //         this.lineChartData = lineData.data
-    //         ;(this.tableData = tabData.data.tableList),
-    //           (this.barData = barData.data)
-    //       })
-    //     )
-    // }
-    // 静态修改
   }
 }
 </script>
 <style scoped lang="scss">
 $mgTop: 30px;
-@mixin shadow {
-  box-shadow: 0 0 10px #e2e2e2;
-}
+
 .color-green1 {
   color: #40c9c6 !important;
 }
@@ -179,9 +203,6 @@ $mgTop: 30px;
 }
 .color-green2 {
   color: #34bfa3 !important;
-}
-.dashbord {
-  background-color: #f0f3f4;
 }
 .infoCrads {
   margin: 0 -20px 0 -20px;
@@ -195,7 +216,6 @@ $mgTop: 30px;
 }
 .cardItem {
   color: #666;
-  @include shadow();
   .cardItem_txt {
     float: left;
     margin: 26px 0 0 20px;
@@ -219,18 +239,14 @@ $mgTop: 30px;
   background: #fff;
   margin-top: $mgTop;
   padding: 30px 0;
-  @include shadow();
 }
 .barCharts {
   background: #fff;
   margin-top: $mgTop;
-  padding: 30px 0;
-  @include shadow();
 }
 .pieCharts {
   background: #fff;
   padding: 20px 0;
-  @include shadow();
 }
 .tableChart {
   margin-top: $mgTop;

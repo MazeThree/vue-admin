@@ -1,30 +1,24 @@
-## 简介
+## 导航条设计思路
 
-借鉴改造的后台管理系统，仅供个人学习，在此查看[原项目地址](https://github.com/gcddblue/vue-admin-webapp)
+### 说明
 
-- [在线预览-github](https://gcddblue.github.io/vue-admin-webapp)
-- [在线预览-gitee](https://gcddblue.gitee.io/vue-admin-webapp) （推荐国内用户）
+参照了阿里的导航条设计风格[Ant Design Pro](https://preview.pro.ant.design/dashboard/analysis?language=zh-CN&layout=topmenu&contentWidth=Fixed),但没看实现源码（因为是React写的。。。没接触）,于是自己整理思路用Vue的方法实现的,主要考虑了后期路由权限的的原因，渲染路由长度不定，所以超出的部分不好展示统一丢在更多里面，实现主要借助了数组的filter()和slice()方法,在取到整个router数组对象时，首先通过filter过滤掉隐藏的(hidden:true),再将数组拆分为两个(slice取前6个和剩余的)分别渲染即可。
 
-**目前版本基于 `webpack 4.0+` 和 `vue-cli 3.x` 版本构建，需要 [Node.js](https://nodejs.org/) 8.9 或更高版本（推荐 8.11.0+），相关知识可以自行进官网进行了解**
+> 注意：由于路由设置了hidden属性会默认不在导航条显示，所以要先过滤掉，否则明明拆分了6个数组，但展示的可能不全
 
-## 快速开始
 
-> 在开始之前，请确保在本地安装 node 和 webpack 及 git。 本项目涉及的技术栈主要有 [ES6](http://es6.ruanyifeng.com/) 、[vue](https://cn.vuejs.org/) 、[vuex](https://vuex.vuejs.org/zh/) 、[vue-router](https://router.vuejs.org/zh/) 、[vue-cli](https://cli.vuejs.org/zh/guide/) 、[axios](http://www.axios-js.com/) 、[webpack](https://www.webpackjs.com/) 、[element-ui](https://element.eleme.io/#/zh-CN) 、[easyMock](https://www.easy-mock.com/) ,所以你最好提前熟悉了解这些知识，这将对你认识学习该项目有很大帮助
+### 实现
 
-### 安装
+html部分
 
-```
-# 克隆项目
-git clone git@github.com:gcddblue/vue-admin-webapp.git
 
-# 进入项目目录
-cd vue-admin-webapp
-
-# 安装依赖
-npm install
-
-# 启动服务
-npm run serve
+js部分
+```js
+  mounted () {
+    const nav = this.routes.filter(item => !item.hidden)
+    this.routesShow = nav.slice(0,6)
+    this.routesHidden = nav.slice(6)
+  }
 ```
 
 ### 项目目录

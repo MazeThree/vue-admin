@@ -1,5 +1,5 @@
 <template>
-  <div class="sideItem" v-if="!item.hidden">
+  <div class="el-submenu" v-if="!item.hidden">
     <template
       v-if="
         hasOnlyChild(item.children, item) &&
