@@ -4,18 +4,24 @@
       <!-- <a href="javascript:;"
          class="logoLink"><img src="./logo.png"
              alt="logo" />Vue Project</a> -->
-      <a href="https://github.com/MazeThree/vue-admin" title="访问我的gitHub" target="_blank">
+      <a
+        href="https://github.com/MazeThree/vue-admin"
+        title="访问我的gitHub"
+        target="_blank"
+      >
         <h1>Maze</h1>
       </a>
     </div>
     <div class="head_nav">
-      <el-menu :default-active="this.activeMenu"
-               class="el-menu-demo"
-               mode="horizontal"
-               @select="handleSelect"
-               :background-color="menuColor"
-               text-color="#fff"
-               active-text-color="#ffd04b">
+      <el-menu
+        :default-active="this.activeMenu"
+        class="el-menu-demo"
+        mode="horizontal"
+        @select="handleSelect"
+        :background-color="menuColor"
+        text-color="#fff"
+        active-text-color="#ffd04b"
+      >
         <sidebar-item
           v-for="item in routesShow"
           :key="item.path"
@@ -23,7 +29,9 @@
           :basePath="item.path"
         ></sidebar-item>
         <el-submenu index="2" v-show="routesHidden.length > 0">
-          <template slot="title">更多</template>
+          <template slot="title"
+            >更多</template
+          >
           <sidebar-item
             v-for="item in routesHidden"
             :key="item.path"
@@ -47,14 +55,18 @@
         <i class="el-icon-search"></i>
       </span>
       <span>
-        <el-menu class="el-menu-demo"
-                mode="horizontal"
-                @select="handleSelect"
-                :background-color="menuColor"
-                text-color="#fff"
-                active-text-color="#ffd04b">
+        <el-menu
+          class="el-menu-demo"
+          mode="horizontal"
+          @select="handleSelect"
+          :background-color="menuColor"
+          text-color="#fff"
+          active-text-color="#ffd04b"
+        >
           <el-submenu index="2">
-            <template slot="title">我的工作台</template>
+            <template slot="title"
+              >我的工作台</template
+            >
             <el-menu-item index="2-1">选项1</el-menu-item>
             <el-menu-item index="2-2">选项2</el-menu-item>
             <el-menu-item index="2-3">选项3</el-menu-item>
@@ -70,10 +82,10 @@ import variable from '@/assets/css/variable.scss'
 import SidebarItem from './SideBarItem'
 import { mapGetters } from 'vuex'
 export default {
-  components: { 
+  components: {
     SidebarItem
   },
-  data () {
+  data() {
     return {
       menuColor: variable.menuColor,
       routesShow: [],
@@ -82,13 +94,13 @@ export default {
   },
   computed: {
     ...mapGetters(['routes', 'opened']),
-    activeMenu () {
+    activeMenu() {
       return this.$route.path
     }
   },
-  mounted () {
+  mounted() {
     const nav = this.routes.filter(item => !item.hidden)
-    this.routesShow = nav.slice(0,5)
+    this.routesShow = nav.slice(0, 5)
     this.routesHidden = nav.slice(5)
   }
 }
@@ -97,12 +109,12 @@ export default {
 <style lang="scss" scoped>
 .header {
   height: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: auto;
   padding-left: 0;
   display: flex;
   .head_logo {
-    width: 140px;
+    width: 165px;
     height: 100%;
     & > a {
       display: block;
@@ -114,9 +126,15 @@ export default {
   }
   .head_nav {
     flex: 1;
+    .el-menu {
+      .el-submenu {
+        width: 120px;
+        text-align: center;
+      }
+    }
   }
   .head_info {
-    width: 350px;
+    width: 280px;
     span {
       display: block;
       float: left;
@@ -126,16 +144,19 @@ export default {
       line-height: 60px;
     }
     span:hover {
-      background: #1890ff;
+      background-color: rgb(46, 50, 65);
     }
   }
 }
 </style>
 <style>
 .el-submenu .el-menu-item {
-    height: 60px;
-    line-height: 60px;
-    padding: 0;
-    min-width: unset;
+  height: 60px;
+  line-height: 60px;
+  padding: 0;
+  min-width: unset;
+}
+.el-submenu__title {
+  padding: 0;
 }
 </style>
