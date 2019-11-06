@@ -8,11 +8,11 @@
 
 <script>
 import echarts from 'echarts'
-import resize from '@/mixins/resize'
+// import resize from '@/mixins/resize'
 require('echarts/theme/macarons')
 // import { getLineData } from '@/api/dashboard'
 export default {
-  mixins: [resize],
+  // mixins: [resize],
   props: {
     width: {
       type: String,

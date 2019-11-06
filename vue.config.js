@@ -1,11 +1,11 @@
 const path = require('path')
-const resolve = function(dir) {
+const resolve = function (dir) {
   return path.join(__dirname, dir)
 }
 
 module.exports = {
   publicPath:
-    process.env.NODE_ENV === 'production' ? '/vue-admin-webapp/' : '/',
+    process.env.NODE_ENV === 'production' ? '/wupeng/' : '/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: false, // 是否开启eslint保存检测
@@ -16,6 +16,19 @@ module.exports = {
       .set('views', resolve('src/views'))
     config.optimization.runtimeChunk('single')
   },
+  // configureWebpack: {
+  //   devServer: {
+  //     proxy: {
+  //       '/api': {
+  //         target: 'localhost:8080/mes-mbp/bs/',
+  //         changeOrigin: true, //是否跨域
+  //         pathRewrite: {
+  //           '^/api': '' //规定请求地址以什么作为开头
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
   devServer: {
     host: 'localhost',
     port: '8080',

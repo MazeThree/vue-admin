@@ -10,10 +10,10 @@
 
 <script>
 import echarts from 'echarts'
-import resize from '@/mixins/resize'
+// import resize from '@/mixins/resize'
 require('echarts/theme/macarons')
 export default {
-  mixins: [resize],
+  // mixins: [resize],
   props: {
     width: {
       type: String,

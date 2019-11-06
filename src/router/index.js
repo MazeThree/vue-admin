@@ -249,7 +249,7 @@ export const asyncRoutes = [
     ]
   },
   {
-    path: 'https://github.com/gcddblue/vue-admin-webapp',
+    path: 'https://github.com/MazeThree',
     name: 'Github',
     meta: { icon: 'el-icon-link', title: '项目链接' }
   },

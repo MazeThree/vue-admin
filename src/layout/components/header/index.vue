@@ -4,40 +4,30 @@
       <!-- <a href="javascript:;"
          class="logoLink"><img src="./logo.png"
              alt="logo" />Vue Project</a> -->
-      <a
-        href="https://github.com/MazeThree/vue-admin"
-        title="访问我的gitHub"
-        target="_blank"
-      >
+      <a href="https://github.com/MazeThree/vue-admin"
+         title="访问我的gitHub"
+         target="_blank">
         <h1>Maze</h1>
       </a>
     </div>
     <div class="head_nav">
-      <el-menu
-        :default-active="this.activeMenu"
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="handleSelect"
-        :background-color="menuColor"
-        text-color="#fff"
-        active-text-color="#ffd04b"
-      >
-        <sidebar-item
-          v-for="item in routesShow"
-          :key="item.path"
-          :item="item"
-          :basePath="item.path"
-        ></sidebar-item>
-        <el-submenu index="2" v-show="routesHidden.length > 0">
-          <template slot="title"
-            >更多</template
-          >
-          <sidebar-item
-            v-for="item in routesHidden"
-            :key="item.path"
-            :item="item"
-            :basePath="item.path"
-          ></sidebar-item>
+      <el-menu :default-active="this.activeMenu"
+               class="el-menu-demo"
+               mode="horizontal"
+               :background-color="menuColor"
+               text-color="#fff"
+               active-text-color="#ffd04b">
+        <sidebar-item v-for="item in routesShow"
+                      :key="item.path"
+                      :item="item"
+                      :basePath="item.path"></sidebar-item>
+        <el-submenu index="2"
+                    v-show="routesHidden.length > 0">
+          <template slot="title">更多</template>
+          <sidebar-item v-for="item in routesHidden"
+                        :key="item.path"
+                        :item="item"
+                        :basePath="item.path"></sidebar-item>
         </el-submenu>
       </el-menu>
     </div>
@@ -46,32 +36,39 @@
         <i class="el-icon-search"></i>
       </span>
       <span>
-        <i class="el-icon-search"></i>
+        <i class="el-icon-info"></i>
       </span>
       <span>
-        <i class="el-icon-search"></i>
+        <i class="el-icon-bell"></i>
       </span>
       <span>
-        <i class="el-icon-search"></i>
-      </span>
-      <span>
-        <el-menu
-          class="el-menu-demo"
-          mode="horizontal"
-          @select="handleSelect"
-          :background-color="menuColor"
-          text-color="#fff"
-          active-text-color="#ffd04b"
-        >
+        <el-menu class="el-menu-demo"
+                 mode="horizontal"
+                 :background-color="menuColor"
+                 text-color="#fff"
+                 active-text-color="#ffd04b">
           <el-submenu index="2">
             <template slot="title"
-              >我的工作台</template
-            >
-            <el-menu-item index="2-1">选项1</el-menu-item>
+                      class="mine">
+              <img src="../../../assets/img/admin.jpg"
+                   alt="">Maze
+            </template>
+            <el-menu-item index="2-1">个人中心</el-menu-item>
             <el-menu-item index="2-2">选项2</el-menu-item>
-            <el-menu-item index="2-3">选项3</el-menu-item>
+            <el-menu-item index="2-3" style="border-top:1px solid #fff">退出登录</el-menu-item>
           </el-submenu>
         </el-menu>
+        <!-- <el-dropdown>
+          <span class="mine">
+            <img src="../../../assets/img/admin.jpg"
+                 alt="">Maze
+          </span>
+          <el-dropdown-menu slot="dropdown" style="width: 140px;">
+            <el-dropdown-item>个人中心</el-dropdown-item>
+            <el-dropdown-item disabled>选项2</el-dropdown-item>
+            <el-dropdown-item divided>退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown> -->
       </span>
     </div>
   </div>
@@ -85,7 +82,7 @@ export default {
   components: {
     SidebarItem
   },
-  data() {
+  data () {
     return {
       menuColor: variable.menuColor,
       routesShow: [],
@@ -94,11 +91,11 @@ export default {
   },
   computed: {
     ...mapGetters(['routes', 'opened']),
-    activeMenu() {
+    activeMenu () {
       return this.$route.path
     }
   },
-  mounted() {
+  mounted () {
     const nav = this.routes.filter(item => !item.hidden)
     this.routesShow = nav.slice(0, 5)
     this.routesHidden = nav.slice(5)
@@ -113,6 +110,7 @@ export default {
   margin: auto;
   padding-left: 0;
   display: flex;
+  position: unset !important;
   .head_logo {
     width: 165px;
     height: 100%;
@@ -145,6 +143,12 @@ export default {
     }
     span:hover {
       background-color: rgb(46, 50, 65);
+    }
+    img {
+      display: inline-block;
+      border-radius: 50%;
+      width: 35px;
+      margin-right: 8px;
     }
   }
 }

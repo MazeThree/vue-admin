@@ -14,9 +14,14 @@
     background: $bg-color;
   }
   .pageMain {
-    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    min-width: 1200px;
     margin: 0 auto 10px;
     min-height: calc(100% - 70px);
+  }
+  .pageMain > div:first-child {
+    flex: 1;
   }
   .el-footer {
     background: $menu-color;
