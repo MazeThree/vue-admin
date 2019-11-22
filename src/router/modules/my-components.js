@@ -4,8 +4,14 @@ const myCom = {
   component: Layout,
   name: 'MyCom',
   meta: { title: '我的', icon: 'el-icon-set-up' },
-  redirect: '/my-com/selcetTree',
+  redirect: '/my-com/gisTest',
   children: [
+    {
+      path: 'gisTest',
+      name: 'gisTest',
+      component: () => import('@/views/my-components/gisTest'),
+      meta: { title: 'gis开发测试' }
+    },
     {
       path: 'selectTree',
       name: 'selectTree',

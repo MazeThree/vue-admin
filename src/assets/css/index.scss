@@ -12,13 +12,18 @@
   }
   .el-main {
     background: $bg-color;
+    padding: 0;
   }
   .pageMain {
     display: flex;
     flex-direction: column;
     min-width: 1200px;
     margin: 0 auto 10px;
+    padding: 20px;
     min-height: calc(100% - 70px);
+  }
+  .pageMain1 {
+    width: 100%;
   }
   .pageMain > div:first-child {
     flex: 1;
