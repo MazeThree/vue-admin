@@ -55,7 +55,7 @@
             </template>
             <el-menu-item index="2-1">个人中心</el-menu-item>
             <el-menu-item index="2-2">选项2</el-menu-item>
-            <el-menu-item index="2-3" style="border-top:1px solid #fff">退出登录</el-menu-item>
+            <el-menu-item index="2-3" style="border-top:1px solid #fff" @click="loginOut()">退出登录</el-menu-item>
           </el-submenu>
         </el-menu>
         <!-- <el-dropdown>
@@ -93,6 +93,11 @@ export default {
     ...mapGetters(['routes', 'opened']),
     activeMenu () {
       return this.$route.path
+    }
+  },
+  methods: {
+    loginOut() {
+      this.$store.dispatch('user/loginOut')
     }
   },
   mounted () {

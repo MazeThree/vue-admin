@@ -5,6 +5,7 @@ const resolve = function (dir) {
 
 module.exports = {
   publicPath:
+  // 线上地址目录与github保持一致
     process.env.NODE_ENV === 'production' ? '/wupeng/' : '/',
   outputDir: 'dist',
   assetsDir: 'static',

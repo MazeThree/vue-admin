@@ -6,7 +6,7 @@ Vue.use(Router)
 
 import Layout from '@/layout'
 import NavTest from './modules/nav-test'
-import MyCom from './modules/my-components'
+import MyCom from './modules/mine'
 import { Message } from 'element-ui'
 import getTitle from '@/utils/getTitle'
 

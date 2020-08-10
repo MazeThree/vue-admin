@@ -192,6 +192,10 @@ export default {
 <style scoped lang="scss">
 $mgTop: 30px;
 
+.dashbord {
+  width: 12rem;
+  margin: 0 auto;
+}
 .color-green1 {
   color: #40c9c6 !important;
 }

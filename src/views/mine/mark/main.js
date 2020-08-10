@@ -1,0 +1,488 @@
+
+Function.prototype.myCall = function (context) {
+  if (typeof context === 'undefined' || context === null) {
+    context = window
+  }
+  context.fn = this
+  let args = [...this.arguments].slice(1)
+  let result = context.fn(...args)
+  delete context.fn
+  return result
+}
+/**
+ * 实现一个new方法
+ * 原理: 1.创建一个空对象
+ *       2.将对象的原型链指向其构造函数
+ *       3.改变this指向，将this指向新的实例对象
+ *       4.返回该实例对象
+ */
+function myNew () {
+  let obj = new Object()
+  let Constructor = [].shift.call(arguments)
+  obj.__proto__ = Constructor.prototype
+  let result = Constructor.apply(obj, arguments)
+  return typeof result === 'object' ? result : obj
+}
+
+
+/**
+ * 定义一个类
+ */
+class Person {
+  constructor(name, age) {
+    this.name = name
+    this.age = age
+    this.class = 'javascript'
+  }
+  sayHi () {
+    return `hi,我叫${this.name},今年${this.age},课程为${this.class}`
+  }
+}
+
+
+/**
+ * es6实现继承，super继承参数
+ */
+class Student extends Person {
+  constructor(name, age, lessons) {
+    super(name, age)
+    this.lessons = lessons
+  }
+  sayLessons () {
+    let str = this.lessons.join(',')
+    return `hi,我叫${this.name},今年${this.age},课程有${str}`
+  }
+}
+
+/**
+ * es5定义一个构造函数
+ */
+function People (name, age) {
+  this.name = name
+  this.age = age
+  this.sex = '男'
+}
+People.prototype.sayHi = function () {
+  return `hi,我叫${this.name},今年${this.age},课程为${this.class}`
+}
+People.prototype.saySex = function () {
+  return `hi,我叫${this.name},今年${this.age},性别${this.sex}`
+}
+/**
+ * es5原型链继承
+ * 缺点：由于所有Child实例原型都指向同一个Parent实例, 因此对某个Child实例的父类引用类型变量修改会影响所有的Child实例
+在创建子类实例时无法向父类构造传参, 即没有实现super()的功能
+参考链接： https://juejin.im/post/6844904116552990727#heading-12
+ */
+function Child () {
+}
+Child.prototype = new People()
+
+let child = new Child('王五', '22')
+console.log(child.sayHi())//拿不到参数
+console.log(child.saySex())//拿不到参数，只能显示静态参数
+let person = new Person('张三', '23')
+console.log(person.sayHi())
+let testNew = myNew(People, '张三', '23')
+console.log(testNew.sayHi())
+let student = new Student('李四', '10', ['语文', '数学', '英语'])
+console.log(student.sayHi())
+
+/**
+ * es5构造函数继承
+ * 构造函数继承，即在子类的构造函数中执行父类的构造函数，并为其绑定子类的this，让父类的构造函数把成员属性和方法都挂到子类的this上去，这样既能避免实例之间共享一个原型实例，又能向父类构造方法传参
+ * 缺点： 继承不到父类原型上的属性和方法
+ */
+function Child1 () {
+  People.call(this, ...arguments)
+}
+let child1 = new Child1('赵四', '12')
+// console.log(child1.sayHi())//报错
+console.log(child1.name)
+
+/** 
+ * es5组合继承
+ * 在构造函数继承的基础上添加原型链继承，二者结合
+ * 缺点：穿件子类实例时，会有两份相同属性和方法
+*/
+Child1.prototype = new People()
+Child1.prototype.constructor = Child1
+let child2 = new Child1('王五', '22')
+console.log(child2.sayHi())
+
+/**
+ * es5寄生式组合继承,es6转es5的继承实现就是用的这种方式，较为完善
+ */
+Child1.prototype = Object.create(People.prototype)
+Child1.prototype.constructor = Child1
+let child3 = new Child1('李六', '12')
+console.log(child3.sayHi())
+
+/***
+* 查找最长公共子集
+*/
+// function findLongestWord(s, d) {
+//   let result = ''
+//   d.forEach(item => {
+//     if (item.length > result.length) {
+//       let arr = item.split('')
+//       let index = -1
+//       for (let i = 0; i < arr.length; i++) {
+
+//         index = s.indexOf(arr[i])
+//         if (index == -1) {
+//           break
+//         } else {
+//           s = s.slice(index + 1)
+//         }
+//       }
+//       if (index != -1) {
+//         result = item
+//       }
+//     }
+//   })
+//   return result
+// };
+// findLongestWord("abpcplea", ["ale", "apple", "monkey", "plea"])
+
+/**
+ * 判断有序二位递增数组是否包含某个值
+ * @param {Array} arr 
+ * @param {Number} num 
+ */
+
+function hasNums (arr, num) {
+  let index = arr.length - 1
+  let flag = false
+  for (let i = 0; i < arr.length; i++) {
+    if (flag) {
+      break
+    }
+    for (let j = 0; j <= index; j++) {
+      if (arr[i][j] = num) {
+        flag = true
+        break
+      }
+      if (arr[i][j] > num) {
+        index = j
+        break
+      }
+    }
+  }
+  return flag
+}
+/**
+ * 输入一个正整数n，是偶数减半，是奇数3n+1减半，如此循环，计算n到1所需的步骤
+ */
+function getStep (n, step = 0) {
+  if (n === 1) return step
+  if (n % 2 === 0) {
+    n = n / 2
+    step++
+    return getStep(n, step)
+  } else {
+    n = (3 * n + 1) / 2
+    step++
+    return getStep(n, step)
+  }
+}
+/**
+ 
+ */
+
+/**
+* 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。
+* 思路：字符串拆分倒序为数组，用arr1*arr2遍历计算结果，用数组记录每一位的对应结果
+* @param {string} num1
+* @param {string} num2
+* @return {string}
+*/
+var multiply = function (num1, num2) {
+  let arr = [], arr1 = num1.split('').reverse(), arr2 = num2.split('').reverse()
+  arr1.forEach((item1, i) => {
+    arr2.forEach((item2, j) => {
+      let index = i + j //位数,起始位置为0
+      let val1 = 0, val2 = 0
+      if (item1 * item2 > 9) {
+        val1 = (item1 * item2) % 10 //当前位结果
+        val2 = parseInt((item1 * item2) / 10)//下一位结果，为0不处理
+      } else {
+        val1 = item1 * item2
+      }
+      if (arr[index]) {
+        if (arr[index] + val1 > 9) {
+          arr[index] = (arr[index] + val1) % 10
+          val2 += 1
+        } else {
+          arr[index] = arr[index] + val1
+        }
+      } else {
+        arr[index] = val1
+      }
+      if (arr[index + 1]) {
+        if (arr[index + 1] + val2 > 9) {
+          arr[index + 1] = (arr[index + 1] + val2) % 10
+          arr[index + 2] = arr[index + 2] + 1 || 1 //再进一位
+        } else {
+          arr[index + 1] = arr[index + 1] + val2
+        }
+      } else {
+        arr[index + 1] = val2
+      }
+    })
+  })
+  while (arr[arr.length - 1] == 0) arr.pop()
+  return arr.reverse().join('') || "0"
+};
+
+multiply('2', '456')
+
+/**
+ * 计算任何时间时针和分针的夹角
+ * 思路：计算时针与分针与12点的夹角，取差值的绝对值
+ */
+function calcAngle (hour, minutes) {
+  let minutesAngle = minutes * (360 / 60)
+  let hourAngle = hour * (360 / 12) + minutes * (360 / 12 / 60)
+  return Math.abs(minutesAngle - hourAngle)
+}
+
+calcAngle(5, 30)
+
+/**
+ * js实现一个快排算法
+ * 思路：分治法，选定一个基点，拆分为两个数组，小于在左，大于在右，递归直到无法继续拆分
+ * @param {Array} arr
+ * @returns {Array}
+ */
+function quickSort (arr) {
+  if (arr.length <= 1) return arr
+  let point = arr.splice([Math.ceil(arr.length / 2)], 1)[0]
+  let left = [], right = []
+  arr.forEach(item => {
+    item > point ? right.push(item) : left.push(item)
+  })
+  return quickSort(left).concat([point], quickSort(right))
+}
+
+quickSort([5, 6, 3, 4, 7, 9])
+
+// 数据类型判断
+// Object.prototype.toString.call('aaa')
+// typeof，判断null为object，属于js底层bug
+// constructor == String,无法判断null和undefined
+// 判断是否为数组，es6的isArray()
+
+/**
+ * 原生ajax请求
+ * @param {String} url 
+ * @param {String} type 
+ */
+function ajax (url, type, boolean) {
+  let xhr = new XMLHttpRequest()
+  xhr.open(type, url, boolean) // 方式，地址，是否异步
+  xhr.send()
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      let res = xhr.responseText
+      return res
+    }
+  }
+}
+
+/**
+ * 手写一个promise
+ * 参见地址：https://www.cnblogs.com/Joe-and-Joan/p/11206579.html
+ */
+class Promise {
+  // 构造器
+  constructor(executor) {
+    // 初始状态
+    this.state = 'pedding'
+    this.value = undefined
+    this.reason = undefined
+    this.onResolvedCallback = []
+    this.onRejectedCallback = []
+    let resolve = (value) => {
+      if (this.state === 'pending') {
+        this.state = 'fulfilled'
+        this.value = value
+        this.onResolvedCallback.forEach(fn => fn())
+      }
+    }
+    let reject = (reason) => {
+      if (this.state === 'pending') {
+        this.state = 'rejected'
+        this.reason = reason
+        this.onRejectedCallback.forEach(fn => fn())
+      }
+    }
+    try {
+      executor(resolve, reject)
+    } catch (err) {
+      reject(err)
+    }
+  }
+  // then方法，携带两个参数
+  then (onFulfilled, onRejected) {
+    let promise2 = new Promise((resolve, reject) => {
+      if (this.state === 'fulfilled') {
+        onFulfilled(this.value)
+      }
+      if (this.state === 'rejected') {
+        onRejected(this.reason)
+      }
+      if (this.state === 'pending') {
+        this.onResolvedCallback.push(() => {
+          onFulfilled(this.value)
+        })
+        this.onRejectedCallback.push(() => {
+          onRejected(this.reason)
+        })
+      }
+    })
+    return promise2
+  }
+}
+
+/**
+ * 手写一个防抖
+ * 思路： 时间被触发n秒后再执行回调，如何n秒内在此触发，则重新计时
+ * @param {Function} fn 
+ * @param {Number} delay 
+ */
+function debounce (fn, delay) {
+  let timer = null
+  return function (...args) {
+    let context = this
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(function () {
+      fn.apply(context, args)
+    }, delay)
+  }
+}
+
+/**
+ * 手写一个节流
+ * 思路： 时间被触发n秒后再执行回调，如何n秒内在此触发，则忽略
+ * @param {Function} fn 
+ * @param {Number} delay 
+ */
+function throttle (fn, delay) {
+  let flag = true, timer = null
+  return function (...args) {
+    let context = this
+    if (!flag) return
+    flag = false
+    clearTimeout(timer)
+    timer = setTimeout(function () {
+      fn.apply(context, args)
+      flag = true
+    }, delay)
+  }
+}
+
+/**
+ * 数组乱序（洗牌）
+ * 思路：在数组长度范围内，随机生成一个index与当前数索引交换
+ * @param {Array} arr 
+ */
+function shuffle (arr) {
+  if (!arr.length || arr.length === 1) return arr
+  for (let i = 0; i < arr.length; i++) {
+    index = parseInt(Math.random() * (arr.length - i) + i)
+    if (index !== i) {
+      [arr[i], arr[index]] = [arr[index], arr[i]]
+    }
+  }
+  return arr
+}
+
+//for in 和for of的区别
+//遍历数组时for in遍历的是数组的字符串索引，for of遍历的是数组的元素值
+//遍历对象时for in遍历的是对象的所有可枚举属性，包括原型链上的属性，可加个hasOwnProperty判断剔除原型链上属性，而for of不会
+
+/**
+ * 实现add(1)(2)(3),函数柯里化
+ * 函数柯里化概念： 柯里化（Currying）是把接受多个参数的函数转变为接受一个单一参数的函数，并且返回接受余下的参数且返回结果的新函数的技术。
+ */
+function currying () {
+  let args = [...arguments]
+  temp.getValue = () => {
+    return args.reduce((a, b) => a + b, 0)
+  }
+  function temp (...arg) {
+    if (arg.length) {
+      args = [...args, ...arg]
+      return temp
+    }
+  }
+  return temp
+}
+
+currying(1)(2)(3)()
+
+
+/**
+ * 深拷贝对象，可以正确序列化日期
+ * @param {*} obj
+ */
+function deepClone (obj) {
+  let objClone = Array.isArray(obj) ? [] : {}
+  if (obj && typeof obj === 'object') {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        // 判断ojb子元素是否为对象，如果是，递归复制
+        if (obj[key] && typeof obj[key] === 'object') {
+          // 深拷贝日期类型
+          if (obj[key] instanceof Date) {
+            objClone[key] = new Date(obj[key].valueOf())
+            // console.log('deepClone', objClone[key])
+          } else {
+            objClone[key] = DEEP_CLONE(obj[key])
+          }
+        } else {
+          // 如果不是，简单复制
+          objClone[key] = obj[key]
+        }
+      }
+    }
+  }
+  return objClone
+}
+
+// 利用filter去重
+function unique4(arr) {
+  return arr.filter(function (item, index, arr) {
+    //当前元素，在原始数组中的第一个索引==当前索引值，否则返回当前元素
+    return arr.indexOf(item, 0) === index;
+  });
+}
+
+const arr = [1, '1', '1', 'NaN',NaN,'NaN', {a: 1}, '{a: 1}', {a: 1}]
+unique4(arr)
+
+// 各类设计模式简介
+// 单例模式
+// 一个类只能构造出唯一实例
+// Redux/Vuex的store
+
+// 工厂模式
+// 对创建对象逻辑的封装
+// jQuery的$(selector)
+
+// 观察者模式
+// 当一个对象被修改时，会自动通知它的依赖对象
+// Redux的subscribe、Vue的双向绑定
+
+// 装饰器模式
+// 对类的包装，动态地拓展类的功能
+// React高阶组件、ES7 装饰器
+
+// 适配器模式
+// 兼容新旧接口，对类的包装
+// 封装旧API
+
+// 代理模式
+// 控制对象的访问
+// 事件代理、ES6的Proxy

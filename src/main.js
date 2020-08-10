@@ -13,6 +13,8 @@ import VueParticles from 'vue-particles'  // 登录页粒子动效插件，有�
 import marked from 'marked'
 import BaiduMap from 'vue-baidu-map'
 
+import '@/views/mine/mark/main.js'
+
 Vue.use(BaiduMap, {
   ak: "zBVgvYN3Dxf8fhoAauPHnqe2bydWVV18"
 })

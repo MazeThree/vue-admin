@@ -5,9 +5,9 @@
                :zoom="zoom"
                @ready="handler"
                :mapStyle="mapStyle">
-      <bm-boundary name="北京市"
+      <!-- <bm-boundary name="北京市"
                    :strokeWeight="2"
-                   strokeColor="blue"></bm-boundary>
+                   strokeColor="blue"></bm-boundary> -->
       <bml-heatmap :data="data1"
                    :max="100"
                    :radius="20">
@@ -17,7 +17,8 @@
     <titl-emes v-show="mesFalse2 && rowDataList.length > 0"
                :row-data-list="rowDataList"
                :dialogStyle="dialogStyle"
-               @close="mesFalse2 = false" />
+               @close="mesFalse2 = false">
+    </titl-emes>
   </div>
 </template>
 
@@ -70,6 +71,23 @@ export default {
             }
           }
         }
+      },
+      // 栅格图参数
+      gridOptions: {
+        fillStyle: 'rgba(55, 50, 250, 0.8)',
+        shadowColor: 'rgba(255, 250, 50, 1)',
+        shadowBlur: 20,
+        size: 60,
+        globalAlpha: 0.5,
+        label: {
+          show: true,
+          fillStyle: 'white',
+          // shadowColor: 'yellow',
+          // font: '20px Arial',
+          // shadowBlur: 10,
+        },
+        gradient: { 0.25: "rgb(0,0,255)", 0.55: "rgb(0,255,0)", 0.85: "yellow", 1.0: "rgb(255,0,0)" },
+        draw: 'grid'
       }
     }
   },
@@ -87,6 +105,68 @@ export default {
       this.map = map
       this.zoom = 12
       this.setMapData(this.data, mapv)
+
+      // 绘制自定义canvas
+      var list = [
+        {
+          "eci": "73097-57",
+          "communityName": "西城全国人大机关办公楼HL-57", "provinceName": "北京",
+          "city": "北京",
+          "longitude": "116.388333",
+          "latitude": "39.90001",
+          "lngBd": "116.40095515410182",
+          "latBd": "39.90774404019003",
+          "azimuth": "60",
+          "nettype": "TD-LTE",
+          "earfcn": "39800",
+          "parameter": "1",
+          "dateTime": "2019-09-20T14:15:00"
+        },
+        {
+          "eci": "73097-58",
+          "communityName": "西城全国人大机关办公楼HL-58", "provinceName": "北京",
+          "city": "北京",
+          "longitude": "116.388333",
+          "latitude": "39.90001",
+          "lngBd": "116.40095515410182",
+          "latBd": "39.90774404019003",
+          "azimuth": "180",
+          "nettype": "TD-LTE",
+          "earfcn": "39850",
+          "parameter": "1",
+          "dateTime": "2019-09-20T14:15:00"
+        }
+      ]
+      var canvas = document.createElement('canvas');
+      var t = canvas.getContext('2d');
+      canvas.style.position = "absolute";
+      canvas.style.top = 0;
+      canvas.style.left = 0;
+      canvas.width = map.getSize().width;
+      canvas.height = map.getSize().height;
+      map.getPanes().mapPane.appendChild(canvas);
+      for (let i = 0; list.length > i; i++) {
+        var a = 5
+        var b = 6 * a
+        var ox = 0.5 * a,
+          oy = 0.6 * b
+        var deg = list[i].azimuth
+        t.save()
+        t.translate(list[i].lngBd, list[i].latBd)
+        if (deg) {
+          t.rotate(deg * Math.PI / 180)
+        }
+        t.beginPath()
+        t.moveTo(0, 0)
+        t.bezierCurveTo(2 * a, -oy, 2 * ox, -b, 0, -b)
+        t.bezierCurveTo(2 * -ox, -b, 2 * -a, -oy, 0, 0)
+        t.strokeStyle = "red";
+        t.fillStyle = "red";
+        t.closePath()
+        t.fill()
+        t.restore()
+      }
+
     },
     // 边界界定函数
     boundary (province) {
@@ -155,6 +235,7 @@ export default {
         }
         // console.log('进来了', img, data)
         new mapv.baiduMapLayer(this.map, new mapv.DataSet(data), this.options)
+        new mapv.baiduMapLayer(this.map, new mapv.DataSet(data), this.gridOptions)
       }
     },
     // 点击弹窗

@@ -5,15 +5,21 @@
 -->
 <template>
   <div>
+    <h3>初版下拉树</h3>
     <selectTree></selectTree>
+    <br>
+    <h3>下拉树2.0</h3>
+    <newSelectTree></newSelectTree>
   </div>
 </template>
 
 <script>
-import selectTree from './selectTree/'
+import selectTree from './selectTree/index'
+import newSelectTree from './selectTree/selectTree2.0'
 export default {
   components: {
-    selectTree
+    selectTree,
+    newSelectTree
   },
   data () {
     return {
