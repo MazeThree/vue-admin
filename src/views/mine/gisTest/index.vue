@@ -129,7 +129,7 @@ export default {
           "longitude": "116.388333",
           "latitude": "39.90001",
           "lngBd": "116.40095515410182",
-          "latBd": "39.90774404019003",
+          "latBd": "33.90774404019003",
           "azimuth": "180",
           "nettype": "TD-LTE",
           "earfcn": "39850",

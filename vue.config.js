@@ -1,11 +1,11 @@
 const path = require('path')
-const resolve = function (dir) {
+const resolve = function(dir) {
   return path.join(__dirname, dir)
 }
 
 module.exports = {
   publicPath:
-  // 线上地址目录与github保持一致
+    // 线上地址目录与github保持一致
     process.env.NODE_ENV === 'production' ? '/wupeng/' : '/',
   outputDir: 'dist',
   assetsDir: 'static',
