@@ -493,3 +493,21 @@ unique4(arr)
 // 为什么组件的data必须是一个函数
 // 一个组件可能在很多地方使用，也就是会创建很多个实例，
 // 如果data是一个对象的话，对象是引用类型，一个实例修改了data会影响到其他实例，所以data必须使用函数，为每一个实例创建一个属于自己的data，使其同一个组件的不同实例互不影响。
+
+// 除了 v-for， 在使用 Vue-router 做项目时，会遇到如 /path/:id 这样只改变 id 号的场景，但渲染不同的组件。由于 router-view 是复用的，单纯的改变 id 号并不会刷新 router-view，这并不是我们所期望的结果
+// 这个时候，我们可以给每个 router-view 添加一个不相同 key 值，让 Vue 每次切换路由参数的时候，认为是不同的组件，从而得到更新
+
+// 父子组件传值的方法
+// props，emit
+// provide，inject
+// this.$refs.parent,this.$refs.child
+//vueBus
+// vuex
+// v-bind="$attrs":接收父作用域 prop 被识别 (且获取) 的特性绑定，包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过v-on="$listeners"传入内部组件
+
+// 将字符串转为一个可执行函数
+// eval（）
+export const evil = (fn) => {
+  const Fn = Function // 一个变量指向Function，防止有些前端编译工具报错
+  return new Fn('return ' + fn)()
+}
